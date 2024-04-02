@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Text-to-Speech</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Edit Text-to-Speech</h1>
+            <a href="{{ url_for('history') }}">Back to History</a>
+            <p>Text:</p>
+            <p>{{ entry_text }}</p>
+            <div class="form-container">
+                <form id="editForm">
+                    <label for="voice">Select Voice:</label>
+                    <select name="voice" id="voice">
+                        <option value="en" {% if selected_voice == 'en' %}selected{% endif %}>English</option>
+                        <option value="id" {% if selected_voice == 'id' %}selected{% endif %}>Indonesia</option>
+                        <option value="ar" {% if selected_voice == 'ar' %}selected{% endif %}>Arabic</option>
+                        <option value="hi" {% if selected_voice == 'hi' %}selected{% endif %}>India</option>
+                        <option value="ja" {% if selected_voice == 'ja' %}selected{% endif %}>Japan</option>
+                        <option value="zh-CN" {% if selected_voice == 'zh-CN' %}selected{% endif %}>China</option>
+                        <option value="th" {% if selected_voice == 'th' %}selected{% endif %}>Thai</option>
+                    </select><br>
+                    <button type="button" onclick="updateEntry('{{ entry_id }}')" class="btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    
+        <script>
+            function updateEntry(entryId) {
+                var selectedVoice = document.getElementById('voice').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open("PUT", "/edit/" + entryId, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        window.location.href = "{{ url_for('history') }}";
+                    }
+                };
+                var formData = JSON.stringify({
+                    voice: selectedVoice
+                });
+                xhr.send(formData);
+            }
+        </script>
+    </body>
+    </html>
+    

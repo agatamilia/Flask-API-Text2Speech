@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion History</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Conversion History</h1>
+        <a href="/">Back to Converter</a>
+        <p></p>
+        <div class="form-container">
+            <form action="/search" method="GET" class="history">
+                <input type="text" name="search_query" placeholder="Enter text to search...">
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Text</th>
+                        <th>Language</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Preview</th>
+                        <th class="action">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in history %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ entry.text }}</td>
+                        <td>{{ entry.language }}</td>
+                        <td>{{ entry.created_at }}</td>
+                        <td>{{ entry.updated_at }}</td>
+                        <td class="audio-player">
+                            <audio controls>
+                                <source src="{{ url_for('play_audio', entry_id=entry._id) }}" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                        <td>
+                            <form action="/edit/{{ entry._id }}" method="GET" style="display: inline;">
+                                <button type="submit" class="btn-small">Update</button>
+                            </form>
+                            <form action="/delete/{{ entry['_id'] }}" method="POST" style="display: inline; margin-left: 1px;">
+                                <button type="submit" class="btn-small">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

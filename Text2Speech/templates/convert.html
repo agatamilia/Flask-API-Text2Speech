@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech Converter</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Text to Speech Converter</h1>
+        <a href="{{ url_for('history') }}">Conversion History</a>
+        <p></p>
+        <div class="form-container">
+            <form action="/convert" method="post">
+                <textarea name="text" rows="4" cols="50" placeholder="Enter text..."></textarea><br>
+                <label for="voice-select">Select Voice:</label>
+                <select name="voice" id="voice-select">
+                    <option value="en">English</option>
+                    <option value="id">Indonesia</option>
+                    <option value="ar">Arabic</option>
+                    <option value="hi">India</option>
+                    <option value="ja">Japan</option>
+                    <option value="zh-CN">China</option>
+                    <option value="th">Thai</option>
+                </select><br>
+                <button type="submit" class="btn-primary">Convert to Speech</button>
+            </form>
+        </div>
+        <br>
+        {% if audio_path %}
+        <audio controls>
+            <source src="{{ audio_path }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    {% endif %}
+    </div>
+
+
+</body>
+</html>
