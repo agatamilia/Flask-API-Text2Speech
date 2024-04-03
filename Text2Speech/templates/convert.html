@@ -35,7 +35,30 @@
         </audio>
     {% endif %}
     </div>
+    <script>
+        // Tangkap elemen formulir
+        const form = document.getElementById('conversion-form');
 
+        // Tambahkan event listener untuk menangani submit formulir
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Mencegah pengiriman formulir secara default
+
+            // Kirim permintaan AJAX menggunakan fetch
+            const response = await fetch('/convert', {
+                method: 'POST',
+                body: new FormData(form), // Kirim data formulir
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // Tandai sebagai permintaan AJAX
+                }
+            });
+
+            // Ambil data JSON dari respons
+            const data = await response.json();
+
+            // Tampilkan pesan status dari respons JSON di dalam elemen status-message
+            document.getElementById('status-message').textContent = `${data.status}: ${data.message}`;
+        });
+    </script>
 
 </body>
 </html>

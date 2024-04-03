@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
+from pymongo import MongoClient
 from gtts import gTTS
 from datetime import datetime
 import pymongo
@@ -7,9 +8,9 @@ from bson import ObjectId
 
 app = Flask(__name__)
 
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["TTS"]
-collection = db["tts_history"]
+client = MongoClient("mongodb+srv://text2speech:12345@cluster0.kdkxezc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+db = client['TTS']
+collection = db['tts_history']
 
 @app.route('/')
 def index():
@@ -21,7 +22,7 @@ def history():
     return render_template('history.html', history=history_data)
 
 @app.route('/convert', methods=['POST'])
-def convert_text_to_speech():
+def convert():
     text = request.form['text']
     lang = request.form['voice']
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -84,7 +85,7 @@ def update_entry(entry_id):
 def search():
     search_query = request.args.get('search_query', '')
     search_results = list(collection.find({'text': {'$regex': search_query, '$options': 'i'}}))
-    return render_template('search.html', search_query=search_query, search_results=search_results)
+    return render_template('search.html', search_query=search_query, search_results=search)
 
 @app.route('/delete/<entry_id>', methods=['POST'])
 def delete_entry(entry_id):
