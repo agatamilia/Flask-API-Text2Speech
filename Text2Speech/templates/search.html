@@ -24,7 +24,8 @@
                         <th>No</th>
                         <th>Text</th>
                         <th>Language</th>
-                        <th>Timestamp</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
                         <th>Preview</th>
                         <th class="action">Actions</th>
                     </tr>
@@ -35,7 +36,8 @@
                         <td>{{ loop.index }}</td>
                         <td>{{ entry.text }}</td>
                         <td>{{ entry.language }}</td>
-                        <td>{{ entry.timestamp }}</td>
+                        <td>{{ entry.created_at }}</td>
+                        <td>{{ entry.updated_at }}</td>
                         <td class="audio-player">
                             <audio controls>
                                 <source src="{{ url_for('play_audio', entry_id=entry._id) }}" type="audio/mp3">
@@ -46,8 +48,7 @@
                             <form action="/edit/{{ entry._id }}" method="GET" style="display: inline;">
                                 <button type="submit" class="btn-small">Update</button>
                             </form>
-                            <form action="/delete/{{ entry._id }}" method="POST" style="display: inline;">
-                                <input type="hidden" name="_method" value="DELETE">
+                            <form action="/delete/{{ entry['_id'] }}" method="POST" style="display: inline; margin-left: 1px;">
                                 <button type="submit" class="btn-small">Delete</button>
                             </form>
                         </td>

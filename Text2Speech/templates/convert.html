@@ -10,9 +10,10 @@
     <div class="container">
         <h1>Text to Speech Converter</h1>
         <a href="{{ url_for('history') }}">Conversion History</a>
+        <a href="{{ url_for('logout') }}"> | Logout Acc</a>
         <p></p>
         <div class="form-container">
-            <form action="/convert" method="post">
+            <form action="/convert" method="POST">
                 <textarea name="text" rows="4" cols="50" placeholder="Enter text..."></textarea><br>
                 <label for="voice-select">Select Voice:</label>
                 <select name="voice" id="voice-select">

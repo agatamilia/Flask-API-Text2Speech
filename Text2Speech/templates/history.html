@@ -8,7 +8,8 @@
 <body>
     <div class="container">
         <h1>Conversion History</h1>
-        <a href="/">Back to Converter</a>
+        <a href="{{ url_for('convert') }}">Back to Converter</a>
+        <a href="{{ url_for('logout') }}"> | Logout Acc</a>
         <p></p>
         <div class="form-container">
             <form action="/search" method="GET" class="history">
