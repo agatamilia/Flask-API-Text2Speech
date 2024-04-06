@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify # type: ignore
 from pymongo import MongoClient
 from gtts import gTTS
 from datetime import datetime
@@ -10,7 +10,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user
 
 app = Flask(__name__)
 
-client = MongoClient("mongodb+srv://text2speech:12345@cluster0.kdkxezc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+client = MongoClient("mongodb+srv://text2speech:12345@cluster0.kdkxezc.mongodb.net/")
 db = client['TTS']
 collection = db['tts_history']
 
@@ -160,4 +160,4 @@ def delete_entry(entry_id):
         return jsonify({'error': 'Method Not Allowed'}), 405
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='5000', debug=True)
+    app.run(host='0.0.0.0', port='2363', debug=True)
