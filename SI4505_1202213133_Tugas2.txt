@@ -1,0 +1,43 @@
+AMILIA AGATA 1202213133 SI4505 
+Part 1: https://youtu.be/m5Mgi7ljIKA
+Part 2: https://youtu.be/LEu2GLnpjAQ
+
+Docker: docker pull agatamilia/text2speech:latest
+Github: https://github.com/agatamilia/Flask-API-Text2Speech.git
+
+Fungsionalitas API ini mencakup authentication user, text to speech converter, history conversion, pencarian history berdasarkan text, dan update serta delete data. API ini menggunakan Flask, MongoDB, gTTS, SQLAlchemy, sqlite, datetime, dan Flask-Login. Berikut adalah gambaran API:
+
+1. Database Configuration:
+- MongoDB digunakan sebagai database untuk menyimpan riwayat konversi teks ke ucapan.
+- SQLAlchemy dikonfigurasi untuk authentication pengguna dan registrasi.
+- data registrasi dan login disimpan di sqlite.
+akses database di mongodb atlas: mongodb+srv://text2speech:12345@cluster0.kdkxezc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+2. User Authentication:
+- Flask-Login diimplementasikan untuk otentikasi pengguna.
+- Pengguna dapat mendaftar, login, dan logout.
+- Pengguna tidak dapat mengakses endpoint jika belum registrasi atau tidak mempunyai username dan password.
+referensi: https://www.geeksforgeeks.org/how-to-add-authentication-to-your-app-with-flask-login/
+
+3. Endpoints:
+/: langsung mengalihkan ke halaman login.
+/register: Memungkinkan pengguna untuk mendaftar dengan menyediakan username dan password.
+/login: authentication pengguna berdasarkan credintials yang diberikan.
+/logout: Logout pengguna yang saat ini login.
+/history: Mengambil dan menampilkan riwayat konversi dari database MongoDB.
+/convert: Mengonversi teks yang diberikan ke ucapan dan menyimpan data konversi dalam database. Mendukung metode GET dan POST.
+/audio/<entry_id>: Mengambil dan memutar file audio yang terkait dengan ID entri yang diberikan.
+/edit/<entry_id>: Merender formulir untuk mengedit teks dari entri tertentu yang diidentifikasi oleh ID entri. Mendukung metode GET dan PUT.
+/search: Memungkinkan pengguna untuk mencari entri teks tertentu dalam riwayat konversi.
+/delete/<entry_id>: Menghapus entri tertentu dari riwayat konversi. Mendukung metode POST.
+
+4. Konversi Teks ke Ucapan:
+- Memanfaatkan library python gTTS untuk mengonversi teks ke ucapan.
+- Data audio yang dikonversi disimpan dalam database.
+referensi:  https://www.geeksforgeeks.org/convert-text-speech-python/
+
+5. Error Handling:
+Diimplementasikan untuk berbagai skenario seperti metode yang tidak diizinkan, entri tidak ditemukan, dll.
+
+6. Menjalankan Aplikasi:
+Aplikasi Flask berjalan di host '0.0.0.0' dan port '5000' dalam mode debug.
