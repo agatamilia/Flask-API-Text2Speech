@@ -9,6 +9,7 @@
 <body>
     <div class="container">
         <h1>Text to Speech Converter</h1>
+
         <a href="{{ url_for('history') }}">Conversion History</a>
         <a href="{{ url_for('logout') }}"> | Logout Acc</a>
         <p></p>
@@ -35,6 +36,13 @@
             Your browser does not support the audio element.
         </audio>
     {% endif %}
+    <h5>&copy; 2024. Created by Agatamilia. All rights reserved.</h5>
+    <a href="https://www.instagram.com/agatamilia" target="_blank">
+        <img src="{{ url_for('static', filename='images/instagram_icon.png') }}" alt="Instagram" width="24">
+    </a>
+    <a href="mailto:amiliaagataa@gmail.com" target="_blank">
+        <img src="{{ url_for('static', filename='images/email_icon.png') }}" alt="Email" width="24">
+    </a>
     </div>
     <script>
         // Tangkap elemen formulir
